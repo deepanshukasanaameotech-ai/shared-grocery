@@ -114,66 +114,255 @@ export default function GroceryList() {
   const deleteItem = async (id) => await deleteDoc(doc(db, "groups", "myFlat", "items", id));
 
   return (
-    <div style={{ maxWidth: 650, margin: "40px auto", padding: 24, borderRadius: 12, boxShadow: "0 8px 20px rgba(0,0,0,0.2)", background: "#fff", fontFamily: "'Segoe UI', sans-serif" }}>
-      {/* Header with Logo */}
-      <div style={{ textAlign: "center", marginBottom: 20 }}>
-        <img src="https://cdn-icons-png.flaticon.com/512/135/135763.png" alt="Logo" width={80} style={{ marginBottom: 10 }} />
-        <h2>🛒 Shared Grocery Shelf</h2>
-        <p style={{ color: "#555" }}>Add, categorize, and track groceries with your group!</p>
+    <div
+      style={{
+        maxWidth: 720,
+        margin: "40px auto",
+        padding: 24,
+        borderRadius: 20,
+        fontFamily: "'Inter', sans-serif",
+        background: "rgba(255, 255, 255, 0.7)",
+        backdropFilter: "blur(20px)",
+        boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
+        border: "1px solid rgba(255,255,255,0.4)",
+      }}
+    >
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: 25 }}>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/135/135763.png"
+          alt="Logo"
+          width={90}
+          style={{
+            marginBottom: 12,
+            filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.2))",
+          }}
+        />
+        <h2 style={{ fontSize: 28, margin: 0 }}>🛒 Shared Grocery Shelf</h2>
+        <p style={{ color: "#444", fontSize: 15 }}>
+          Manage groceries with ease and vibes ✨
+        </p>
       </div>
 
-      {/* Input area */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-        <input type="text" placeholder="Item name" value={newItem} onChange={(e) => setNewItem(e.target.value)} style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc", fontSize: 16 }} />
-        <input type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} style={{ width: 80, padding: "10px", borderRadius: 8, border: "1px solid #ccc" }} />
-        <input type="text" placeholder="Unit" value={unit} onChange={(e) => setUnit(e.target.value)} style={{ width: 80, padding: "10px", borderRadius: 8, border: "1px solid #ccc" }} />
-        <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} style={{ width: 100, padding: "10px", borderRadius: 8, border: "1px solid #ccc" }} />
-        <input type="text" placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc" }} />
-        <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ borderRadius: 8, padding: "10px", fontSize: 16 }}>
-          {Object.keys(categories).map((cat) => (<option key={cat} value={cat}>{cat}</option>))}
+      {/* Input Box – Floating Card */}
+      <div
+        style={{
+          background: "#fff",
+          padding: 16,
+          borderRadius: 16,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 10,
+          marginBottom: 20,
+          boxShadow: "0 6px 15px rgba(0,0,0,0.08)",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="🍎 Add item..."
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+          style={{
+            flex: 1,
+            padding: "12px 14px",
+            borderRadius: 10,
+            border: "1px solid #ddd",
+            fontSize: 16,
+          }}
+        />
+        <input
+          type="number"
+          min={1}
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          style={{
+            width: 80,
+            padding: "12px",
+            borderRadius: 10,
+            border: "1px solid #ddd",
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Unit"
+          value={unit}
+          onChange={(e) => setUnit(e.target.value)}
+          style={{
+            width: 80,
+            padding: "12px",
+            borderRadius: 10,
+            border: "1px solid #ddd",
+          }}
+        />
+        <input
+          type="number"
+          placeholder="₹ price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          style={{
+            width: 110,
+            padding: "12px",
+            borderRadius: 10,
+            border: "1px solid #ddd",
+          }}
+        />
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          style={{
+            borderRadius: 10,
+            padding: "12px",
+            fontSize: 16,
+            border: "1px solid #ddd",
+          }}
+        >
+          {Object.keys(categories).map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
         </select>
-        <input type="text" placeholder="Or new category" value={customCategory} onChange={(e) => setCustomCategory(e.target.value)} style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc" }} />
-        <button onClick={addItem} style={{ padding: "10px 16px", borderRadius: 8, backgroundColor: "#4CAF50", color: "#fff", fontWeight: "bold", cursor: "pointer" }}>Add</button>
+
+        <button
+          onClick={addItem}
+          style={{
+            padding: "12px 20px",
+            borderRadius: 12,
+            background:
+              "linear-gradient(135deg, #6EE7B7 0%, #3B82F6 90%)",
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: 16,
+            cursor: "pointer",
+            border: "none",
+            transition: "0.2s",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          }}
+        >
+          ➕ Add
+        </button>
       </div>
 
-      {/* Empty state */}
-      {items.length === 0 && <p style={{ textAlign: "center", color: "#777", marginTop: 40, fontSize: 16 }}>Your grocery shelf is empty 🛒 Add some items above!</p>}
+      {/* Empty State */}
+      {items.length === 0 && (
+        <p
+          style={{
+            textAlign: "center",
+            color: "#888",
+            marginTop: 40,
+            fontSize: 16,
+          }}
+        >
+          Your grocery shelf is empty. Add something 👀✨
+        </p>
+      )}
 
-      {/* Grocery list */}
+      {/* List */}
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="items">
           {(provided) => (
-            <ul ref={provided.innerRef} {...provided.droppableProps} style={{ listStyle: "none", padding: 0 }}>
+            <ul
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              style={{ listStyle: "none", padding: 0 }}
+            >
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
-                    <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", marginBottom: 10, borderRadius: 8, backgroundColor: categories[item.category]?.color || "#f9f9f9", cursor: "grab", ...provided.draggableProps.style }}>
-                      {/* Item Info */}
-                      <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 8 }}>
-                        <input type="checkbox" checked={item.done} onChange={() => toggleDone(item.id, item.done)} />
-                        {editingFields.id === item.id ? (
-                          <>
-                            <input type="text" value={editingFields.name} onChange={(e) => setEditingFields((prev) => ({ ...prev, name: e.target.value }))} style={{ flex: 1, padding: "4px 8px", borderRadius: 4, border: "1px solid #ccc" }} />
-                            <input type="number" min={1} value={editingFields.quantity} onChange={(e) => setEditingFields((prev) => ({ ...prev, quantity: Number(e.target.value) }))} style={{ width: 60, padding: "4px 6px", borderRadius: 4, border: "1px solid #ccc" }} />
-                            <input type="text" value={editingFields.unit} onChange={(e) => setEditingFields((prev) => ({ ...prev, unit: e.target.value }))} style={{ width: 60, padding: "4px 6px", borderRadius: 4, border: "1px solid #ccc" }} />
-                            <input type="number" value={editingFields.price} onChange={(e) => setEditingFields((prev) => ({ ...prev, price: e.target.value }))} style={{ width: 80, padding: "4px 6px", borderRadius: 4, border: "1px solid #ccc" }} />
-                            <input type="text" value={editingFields.notes} onChange={(e) => setEditingFields((prev) => ({ ...prev, notes: e.target.value }))} style={{ flex: 1, padding: "4px 8px", borderRadius: 4, border: "1px solid #ccc" }} />
-                          </>
-                        ) : (
-                          <span style={{ textDecoration: item.done ? "line-through" : "none", color: item.done ? "#777" : "#333", fontSize: 16 }}>
-                            {categories[item.category]?.icon} {item.name} x{item.quantity} {item.unit} Rupees - {item.price} <em style={{ fontSize: 12, color: "#555" }}>({item.category}) {item.notes}</em>
+                    <li
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "16px 20px",
+                        marginBottom: 12,
+                        borderRadius: 16,
+                        background: categories[item.category]?.color,
+                        boxShadow:
+                          "0 8px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(0,0,0,0.05)",
+                        cursor: "grab",
+                        transition: "transform 0.15s",
+                        ...provided.draggableProps.style,
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = "scale(1.02)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = "scale(1)")
+                      }
+                    >
+                      {/* Left */}
+                      <div
+                        style={{
+                          display: "flex",
+                          flex: 1,
+                          gap: 10,
+                          alignItems: "center",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={item.done}
+                          onChange={() => toggleDone(item.id, item.done)}
+                        />
+
+                        <span
+                          style={{
+                            fontSize: 17,
+                            color: item.done ? "#777" : "#222",
+                            textDecoration: item.done
+                              ? "line-through"
+                              : "none",
+                            display: "flex",
+                            gap: 6,
+                          }}
+                        >
+                          <span style={{ fontSize: 22 }}>
+                            {categories[item.category]?.icon}
                           </span>
-                        )}
+                          {item.name}
+                          <span style={{ opacity: 0.7 }}>
+                            ×{item.quantity} {item.unit} — ₹{item.price}
+                          </span>
+                          <em
+                            style={{
+                              fontSize: 12,
+                              marginLeft: 6,
+                              opacity: 0.6,
+                            }}
+                          >
+                            {item.notes}
+                          </em>
+                        </span>
                       </div>
 
-                      {/* Actions */}
-                      <div style={{ display: "flex", gap: 8 }}>
-                        {editingFields.id === item.id ? (
-                          <button onClick={saveEdit} style={{ cursor: "pointer" }}>💾</button>
-                        ) : (
-                          <button onClick={() => startEditing(item)} style={{ cursor: "pointer" }}>✏️</button>
-                        )}
-                        <button onClick={() => deleteItem(item.id)} style={{ cursor: "pointer" }}>🗑️</button>
+                      {/* Buttons */}
+                      <div style={{ display: "flex", gap: 12 }}>
+                        <button
+                          onClick={() => startEditing(item)}
+                          style={{
+                            fontSize: 20,
+                            cursor: "pointer",
+                            background: "transparent",
+                            border: "none",
+                          }}
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          onClick={() => deleteItem(item.id)}
+                          style={{
+                            fontSize: 20,
+                            cursor: "pointer",
+                            background: "transparent",
+                            border: "none",
+                          }}
+                        >
+                          🗑️
+                        </button>
                       </div>
                     </li>
                   )}
