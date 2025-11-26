@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore"; // ✅ Import Firestore
 
+//this is my git push and revert test and i am learning github properly so i coul duse it in my future
+
 const firebaseConfig = {
   apiKey: "AIzaSyAAEfOsfav3ggQ4ALh8yk3FWXoy7f0POak",
   authDomain: "sharedgrocery-140ba.firebaseapp.com",
